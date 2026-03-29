@@ -1,4 +1,16 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:5118';
+/** Doluysa o adres; boşsa prod’da relative (/api). Dev’de boş → Vite proxy (varsayılan hedef :5118). */
+function resolveApiBaseUrl() {
+  const raw = import.meta.env.VITE_API_URL;
+  if (raw != null && String(raw).trim() !== '') {
+    return String(raw).trim().replace(/\/$/, '');
+  }
+  if (import.meta.env.DEV) {
+    return '';
+  }
+  return '';
+}
+
+const API_BASE_URL = resolveApiBaseUrl();
 
 const TOKEN_KEY = 'posdemo_token';
 
