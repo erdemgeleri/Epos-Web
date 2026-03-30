@@ -1,4 +1,3 @@
-/** Doluysa o adres; boşsa prod’da relative (/api). Dev’de boş → Vite proxy (varsayılan hedef :5118). */
 function resolveApiBaseUrl() {
   const raw = import.meta.env.VITE_API_URL;
   if (raw != null && String(raw).trim() !== '') {

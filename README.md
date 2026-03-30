@@ -1,35 +1,74 @@
-# Epos-Web
+# PosDemo Frontend (Local Calistirma)
 
-PosDemo React (Vite) arayüzü.
+Bu proje React + Vite tabanli frontend uygulamasidir.
 
-## Kurulum
+## Ozellikler
+
+- Rol bazli kullanim: `Admin`, `Business`, `Customer`
+- Gercek zamanli guncellemeler: SignalR ile siparis, stok ve sohbet olaylari
+- Isletme paneli: urun/stok yonetimi, siparis takibi
+- Musteri paneli: isletme katalogu, sepet, siparis olusturma/iptal
+- Entegre sohbet: isletme-musteri mesajlasma, yaziyor gostergesi, yanitlama
+- JWT tabanli kimlik dogrulama ve oturum yonetimi
+
+## 1) Gereksinimler
+
+- Node.js 20+ (LTS onerilir)
+- npm 10+
+- Calisan PosDemo backend API
+
+## 2) Kurulum
 
 ```bash
 npm ci
-copy .env.example .env
+```
+
+## 3) Ortam Degiskeni (.env)
+
+Proje kokune `.env` dosyasi olusturun:
+
+```env
+VITE_API_URL=
+VITE_DEV_PROXY_TARGET=
+```
+
+### Onerilen local ayar
+
+Backend localde `http://localhost:5118` adresinde calisiyorsa:
+
+```env
+VITE_API_URL=
+VITE_DEV_PROXY_TARGET=http://localhost:5118
+```
+
+Bu ayarla frontend istekleri Vite proxy uzerinden backend'e yonlendirilir.
+
+### Alternatif ayar
+
+Proxy kullanmadan dogrudan API adresi vermek isterseniz:
+
+```env
+VITE_API_URL=http://localhost:5118
+VITE_DEV_PROXY_TARGET=
+```
+
+## 4) Uygulamayi Baslatma
+
+```bash
 npm run dev
 ```
 
-`VITE_API_URL` boşken geliştirmede istekler **relative** (`/api`, `/hubs`) gider; Vite bunları `VITE_DEV_PROXY_TARGET` (varsayılan `http://localhost:5118`) adresine yönlendirir. Doğrudan API’ye bağlanmak için `.env` içinde örneğin `VITE_API_URL=http://localhost:5118` yazın.
+Varsayilan adres: [http://localhost:5173](http://localhost:5173)
 
-| Ortam | Öneri |
-|--------|--------|
-| **Geliştirme, API `dotnet run` (5118)** | `VITE_API_URL` boş (proxy) veya `VITE_API_URL=http://localhost:5118` |
-| **Geliştirme, API Docker 8081** | `VITE_DEV_PROXY_TARGET=http://localhost:8081` ve `VITE_API_URL` boş **veya** `VITE_API_URL=http://localhost:8081` |
-| **Üretim, SPA ve API aynı host** | `VITE_API_URL` boş; `npm run build` → relative `/api` |
-| **Üretim, API ayrı adres** | `VITE_API_URL=https://api.domain.com` ile `npm run build` |
+## 5) Musteri Inceleme Icin Not
 
-Üretim derlemesi:
+- Frontend tek basina yeterli degildir; backend API'nin de acik olmasi gerekir.
+- Giris yapildiginda roller bazinda panel yonlendirmesi vardir (`Admin`, `Business`, `Customer`).
+
+## 6) Uretim Derlemesi
 
 ```bash
-set VITE_API_URL=https://api.ornek.com
 npm run build
 ```
 
-Linux/macOS: `VITE_API_URL=https://api.ornek.com npm run build`
-
-Çıktı: `dist/` — statik dosya sunucusu veya backend `wwwroot` ile yayınlanabilir.
-
-## API (backend)
-
-CORS backend’de açık; farklı origin’de `VITE_API_URL` tam URL olmalı. SignalR için tarayıcıda WebSocket’in engellenmediğinden emin olun.
+Derleme ciktisi: `dist/`

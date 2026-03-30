@@ -31,7 +31,6 @@ export default function LoginPage() {
       <div className="w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl shadow-slate-900/20
                       lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
 
-        {/* ── LEFT: Brand Aside ── */}
         <div className="ui-auth-aside hidden flex-col justify-between p-10 lg:flex">
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-10">
@@ -75,9 +74,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* ── RIGHT: Login Form ── */}
         <div className="flex flex-col justify-center bg-white px-8 py-10 sm:px-12">
-          {/* Mobile logo */}
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600">
               <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-white">

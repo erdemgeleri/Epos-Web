@@ -29,7 +29,6 @@ export default function RegisterCustomerPage() {
       <div className="w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl shadow-slate-900/20
                       lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
 
-        {/* ── LEFT: Brand Aside ── */}
         <div className="ui-auth-aside hidden flex-col justify-between p-10 lg:flex">
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-10">
@@ -52,7 +51,6 @@ export default function RegisterCustomerPage() {
           <p className="relative z-10 text-xs text-slate-600">PosDemo müşteri portalı</p>
         </div>
 
-        {/* ── RIGHT: Form ── */}
         <div className="flex flex-col justify-center bg-white px-8 py-10 sm:px-12">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <div

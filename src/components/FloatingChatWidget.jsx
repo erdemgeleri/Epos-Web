@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect -- sohbet paneli yükleme / SignalR senkron */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { subscribeChatMessage, subscribeChatTyping, useLive } from '../context/LiveContext';
 import { useAuth } from '../context/AuthContext';
@@ -22,10 +21,6 @@ function convKey(businessId, customerUserId) {
   return `${businessId ?? ''}:${customerUserId ?? ''}`;
 }
 
-/**
- * @param {'business' | 'customer'} variant
- * @param {{ id: string, name: string }[]} [businesses] — müşteri: katalog işletmeleri
- */
 export default function FloatingChatWidget({ variant, businesses = [] }) {
   const { user } = useAuth();
   const { sendChatTyping, pushToast } = useLive();
@@ -37,12 +32,10 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
   const [replyTo, setReplyTo] = useState(null);
   const [peerTyping, setPeerTyping] = useState(false);
   const [unread, setUnread] = useState(0);
-  // { convKey: count } — konuşma başına okunmamış sayısı
   const [unreadMap, setUnreadMap] = useState({});
   const [isSmUp, setIsSmUp] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(min-width: 640px)').matches,
   );
-  // Masaüstünde sol liste panelini kapat/aç
   const [listCollapsed, setListCollapsed] = useState(false);
 
   const typingStopTimer = useRef(null);
@@ -146,7 +139,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
     );
   }, [threadRows]);
 
-  /** Mobil sohbet başlığı (seçili konuşma) */
   const selectedConversationTitle = useMemo(() => {
     if (!selected) {
       return '';
@@ -325,7 +317,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
   const openExpanded = () => {
     setExpanded(true);
     setUnread(0);
-    // Açık konuşmanın sayacını da temizle
     if (selected) {
       const key = convKey(selected.businessId, selected.customerUserId);
       setUnreadMap((prev) => {
@@ -351,7 +342,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
       }
       setReplyTo(null);
       setPeerTyping(false);
-      // Bu konuşmanın okunmamış sayısını temizle
       const key = convKey(row.businessId, row.customerUserId);
       setUnreadMap((prev) => {
         if (!prev[key]) return prev;
@@ -384,7 +374,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
                 sm:gap-2 sm:rounded-lg sm:px-2 sm:py-2
                 ${isSel ? 'bg-blue-50 sm:bg-blue-100' : 'hover:bg-slate-50 sm:hover:bg-slate-50'}`}
             >
-              {/* Avatar — relative ile badge için */}
               <div className="relative shrink-0">
                 <div
                   className={`flex h-11 w-11 items-center justify-center rounded-full text-sm font-700 text-white shadow-sm
@@ -400,7 +389,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
                 )}
               </div>
 
-              {/* Label + preview */}
               <div className="min-w-0 flex-1">
                 <p
                   className={`truncate text-sm sm:text-xs ${
@@ -426,7 +414,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
                 )}
               </div>
 
-              {/* Sağ taraf — mobilde ok, masaüstünde sayac */}
               <div className="shrink-0">
                 {unreadCount > 0 && !isSel ? (
                   <span className="hidden min-w-[18px] items-center justify-center rounded-full bg-red-500 px-1 py-px text-[9px] font-700 leading-none text-white sm:flex">
@@ -549,7 +536,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
 
   const chatPanelContent = (
     <>
-      {/* Mobil: geri + başlık + kapat */}
       <div
         className={`flex shrink-0 items-center gap-2 border-b border-slate-200 bg-gradient-to-r from-blue-800 to-blue-700 px-2 py-3 text-white ${isSmUp ? 'hidden' : ''}`}
       >
@@ -578,7 +564,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
         </button>
       </div>
 
-      {/* Masaüstü: klasik başlık */}
       <div
         className={`shrink-0 items-center justify-between border-b border-slate-200 bg-gradient-to-r from-blue-800 to-blue-700 px-3 py-2.5 text-white ${isSmUp ? 'flex' : 'hidden'}`}
       >
@@ -593,12 +578,10 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
         </button>
       </div>
 
-      {/* Mobil: tam genişlikte ya liste ya sohbet — tek sütun, patlama yok */}
       {!isSmUp ? (
         <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-white">
           {!selected ? (
             <>
-              {/* Açıklama başlığı */}
               <div className="shrink-0 border-b border-slate-100 bg-white px-4 py-4">
                 <p className="font-display text-base font-700 text-slate-800">
                   {variant === 'business' ? 'Müşterileriniz' : 'İşletmeler'}
@@ -610,7 +593,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
                 </p>
               </div>
 
-              {/* Liste ya da boş durum */}
               {sortedRows.length === 0 ? (
                 <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-10 text-center">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 text-2xl">
@@ -637,15 +619,12 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
         </div>
       ) : null}
 
-      {/* Masaüstü: yan yana (tek mount — messageThreadColumn yalnızca burada) */}
       {isSmUp ? (
         <div
           className={`grid min-h-0 flex-1 overflow-hidden bg-white divide-x divide-slate-100 transition-[grid-template-columns] duration-200
             ${listCollapsed ? 'grid-cols-[0px_minmax(0,1fr)]' : 'grid-cols-[minmax(0,38%)_minmax(0,1fr)]'}`}
         >
-          {/* Sol liste paneli */}
           <div className={`relative min-h-0 flex flex-col overflow-hidden border-slate-100 border-r ${listCollapsed ? 'w-0' : ''}`}>
-            {/* Liste başlığı + kapatma butonu */}
             <div className="sticky top-0 z-[1] flex shrink-0 items-center justify-between bg-slate-50 px-2 py-1.5">
               <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                 {variant === 'business' ? 'Müşteriler' : 'İşletmeler'}
@@ -664,9 +643,7 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
             <ul className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-1">{threadListButtons}</ul>
           </div>
 
-          {/* Sağ mesaj alanı */}
           <div className="relative flex min-h-0 min-w-0 flex-col overflow-hidden">
-            {/* Liste kapalıyken sol kenarında aç butonu */}
             {listCollapsed && (
               <button
                 type="button"
@@ -677,7 +654,6 @@ export default function FloatingChatWidget({ variant, businesses = [] }) {
                 <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
                   <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                {/* Toplam okunmamış varsa kırmızı nokta */}
                 {Object.keys(unreadMap).length > 0 && (
                   <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-red-500 ring-1 ring-white" />
                 )}

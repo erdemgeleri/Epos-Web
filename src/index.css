@@ -2,10 +2,6 @@
 
 @import 'tailwindcss';
 
-/* ================================================================
-   POSDEMO – Enterprise Design System
-   Palette: Navy #05111f / #0a1e38  Royal Blue #1a56db / #1d4ed8
-   ================================================================ */
 
 :root {
   --pos-navy:       #05111f;
@@ -52,7 +48,6 @@ body {
   letter-spacing: -0.025em;
 }
 
-/* ── App shell ─────────────────────────────────────────── */
 .ui-app-shell {
   min-height: 100dvh;
   min-width: 0;
@@ -60,7 +55,6 @@ body {
   background: var(--pos-bg);
 }
 
-/* ── Hero (landing page) ───────────────────────────────── */
 .ui-hero {
   background:
     radial-gradient(ellipse 70% 55% at 80% 20%, rgba(26,86,219,0.25), transparent 55%),
@@ -81,7 +75,6 @@ body {
   pointer-events: none;
 }
 
-/* ── Cards ─────────────────────────────────────────────── */
 .ui-card {
   border-radius: 10px;
   background: var(--pos-surface);
@@ -97,7 +90,6 @@ body {
   border: 1px solid var(--pos-border-sub);
 }
 
-/* ── Inputs ────────────────────────────────────────────── */
 .ui-input,
 .ui-select {
   min-height: 42px;
@@ -124,7 +116,6 @@ body {
 
 .ui-select { cursor: pointer; }
 
-/* ── Label ─────────────────────────────────────────────── */
 .ui-label {
   display: block;
   margin-bottom: 6px;
@@ -135,7 +126,6 @@ body {
   color: var(--pos-text-3);
 }
 
-/* ── Buttons ────────────────────────────────────────────── */
 .ui-btn-primary {
   display: inline-flex;
   min-height: 40px;
@@ -196,7 +186,6 @@ body {
   background: #f4f7fa;
 }
 
-/* Buttons on dark (nav) backgrounds */
 .ui-btn-nav {
   display: inline-flex;
   min-height: 34px;
@@ -258,7 +247,6 @@ body {
 
 .ui-btn-ghost:hover { background: #f0f4f8; }
 
-/* ── Panel header (dark navy) ────────────────────────────── */
 .ui-panel-header {
   position: sticky;
   top: 0;
@@ -267,7 +255,6 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.3);
 }
 
-/* ── Tab bar (sits inside dark header) ────────────────────── */
 .ui-tab-bar {
   display: flex;
   gap: 2px;
@@ -301,7 +288,6 @@ body {
   background: rgba(255,255,255,0.07);
 }
 
-/* ── Kicker (eyebrow label) ─────────────────────────────── */
 .ui-kicker {
   font-size: 11px;
   font-weight: 700;
@@ -315,7 +301,6 @@ body {
   background: linear-gradient(90deg, rgba(26,86,219,0.4), rgba(208,215,226,0.5) 50%, transparent);
 }
 
-/* ── Auth aside ─────────────────────────────────────────── */
 .ui-auth-aside {
   position: relative;
   overflow: hidden;
@@ -343,7 +328,6 @@ body {
   pointer-events: none;
 }
 
-/* ── Stat cards ──────────────────────────────────────────── */
 .ui-stat {
   position: relative;
   border-radius: 10px;
@@ -381,7 +365,6 @@ body {
   line-height: 1.1;
 }
 
-/* ── Tables ─────────────────────────────────────────────── */
 .ui-table-shell {
   border-radius: 10px;
   border: 1px solid var(--pos-border);
@@ -413,7 +396,6 @@ body {
 .ui-tr:hover { background: #f7fafd; }
 .ui-tr:last-child .ui-td { border-bottom: none; }
 
-/* ── Toasts ─────────────────────────────────────────────── */
 .ui-toast {
   border-radius: 9px;
   border: 1px solid;
@@ -424,7 +406,6 @@ body {
   backdrop-filter: blur(8px);
 }
 
-/* ── Typing animation ────────────────────────────────────── */
 .chat-typing-dots {
   display: inline-flex;
   gap: 3px;
@@ -446,7 +427,6 @@ body {
   35% { opacity: 1; transform: translateY(-3px); }
 }
 
-/* ── Safe area ───────────────────────────────────────────── */
 @supports (padding: max(0px)) {
   body {
     padding-left: max(0px, env(safe-area-inset-left));

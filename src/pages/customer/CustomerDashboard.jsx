@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect -- panel verisi ilk yüklemede effect ile çekiliyor */
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FloatingChatWidget from '../../components/FloatingChatWidget';
@@ -55,9 +54,7 @@ export default function CustomerDashboard() {
       void (async () => {
         try {
           setProducts(await api.catalogProducts(bizId));
-        } catch {
-          /* ignore */
-        }
+        } catch {}
       })();
     });
   }, [selectedBusiness?.id]);

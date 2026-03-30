@@ -80,11 +80,9 @@ export default function HomePage() {
   return (
     <div className="ui-app-shell">
 
-      {/* ── HERO ─────────────────────────────────────── */}
       <section className="ui-hero relative">
         <div className="relative z-10">
 
-          {/* Top nav */}
           <nav className="flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 shadow-lg shadow-blue-900/40">
@@ -117,7 +115,6 @@ export default function HomePage() {
             </div>
           </nav>
 
-          {/* Hero content */}
           <div className="max-w-7xl mx-auto px-6 pt-14 pb-24">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 mb-8">
@@ -169,7 +166,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Stats row */}
             <div className="mt-16 flex flex-wrap gap-10 border-t border-white/10 pt-10">
               <StatPill value="3" label="Rol" />
               <StatPill value="∞" label="İşletme" />
@@ -180,7 +176,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FEATURES ────────────────────────────────── */}
       <section className="bg-slate-50 py-20 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12 text-center">
@@ -197,7 +192,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── AUTH / CTA ───────────────────────────────── */}
       <section className="py-20 px-6">
         <div className="max-w-4xl mx-auto">
           {user ? (
@@ -213,7 +207,6 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {/* Admin */}
               <div className="ui-card p-6 flex flex-col items-start gap-4">
                 <div
                   className="flex h-10 w-10 items-center justify-center rounded-xl text-white text-sm font-700"
@@ -230,7 +223,6 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              {/* Business */}
               <div className="ui-card p-6 flex flex-col items-start gap-4">
                 <div
                   className="flex h-10 w-10 items-center justify-center rounded-xl text-white text-sm font-700"
@@ -247,7 +239,6 @@ export default function HomePage() {
                 </Link>
               </div>
 
-              {/* Customer */}
               <div className="ui-card p-6 flex flex-col items-start gap-4">
                 <div
                   className="flex h-10 w-10 items-center justify-center rounded-xl text-white text-sm font-700"
@@ -268,7 +259,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── TEST CREDENTIALS ─────────────────────────── */}
       <section className="pb-16 px-6">
         <div className="max-w-4xl mx-auto">
           <div
@@ -299,7 +289,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FOOTER ──────────────────────────────────── */}
       <footer className="border-t border-slate-200 bg-white py-8 px-6">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">

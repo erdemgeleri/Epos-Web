@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { createLiveHubConnection } from '../lib/signalr';
 import { useAuth } from './AuthContext';
@@ -10,10 +9,8 @@ let toastSeq = 0;
 const chatSubscribersRef = new Set();
 const typingSubscribersRef = new Set();
 const productChangedSubscribersRef = new Set();
-/** (event: 'orderCreated' | 'orderCancelled', payload) => void */
 const orderEventSubscribersRef = new Set();
 
-/** Admin paneli listelerini güncellemek için (sipariş, kullanıcı, işletme, ürün sayıları). Chat hariç. */
 const adminRefreshEvents = new Set([
   'orderCreated',
   'orderCancelled',
@@ -91,9 +88,7 @@ export function LiveProvider({ children }) {
     }
     try {
       await hub.invoke('SetChatTyping', businessId, customerUserId, isTyping);
-    } catch {
-      /* ignore */
-    }
+    } catch {}
   }, []);
 
   useEffect(() => {
@@ -131,9 +126,7 @@ export function LiveProvider({ children }) {
       orderEventSubscribersRef.forEach((fn) => {
         try {
           fn(event, payload);
-        } catch {
-          /* ignore */
-        }
+        } catch {}
       });
     };
 
@@ -161,9 +154,7 @@ export function LiveProvider({ children }) {
       productChangedSubscribersRef.forEach((fn) => {
         try {
           fn(payload);
-        } catch {
-          /* ignore subscriber errors */
-        }
+        } catch {}
       });
       if (userRef.current?.role === 'Admin' && adminRefreshEvents.has('productChanged')) {
         bumpAdminData();
@@ -176,9 +167,7 @@ export function LiveProvider({ children }) {
       chatSubscribersRef.forEach((fn) => {
         try {
           fn(payload);
-        } catch {
-          /* ignore subscriber errors */
-        }
+        } catch {}
       });
     });
 
@@ -186,9 +175,7 @@ export function LiveProvider({ children }) {
       typingSubscribersRef.forEach((fn) => {
         try {
           fn(payload);
-        } catch {
-          /* ignore */
-        }
+        } catch {}
       });
     });
 
@@ -197,9 +184,7 @@ export function LiveProvider({ children }) {
       setConnectionState('Connected');
       try {
         await joinRoleGroups(connection);
-      } catch {
-        /* ignore */
-      }
+      } catch {}
       if (userRef.current?.role === 'Admin') {
         bumpAdminData();
       }
